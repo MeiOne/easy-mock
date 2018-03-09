@@ -256,9 +256,11 @@ export default {
         if (res.data.message === '用户不存在') {
           this.$Modal.confirm({
             title: this.$t('confirm.title'),
-            content: this.$t('p.login.confirm.register.content'),
+            content: this.userName.indexOf('@mei1.com') !== -1 ? this.$t('p.login.confirm.register.content'): '请使用公司邮箱登录',
             onOk: () => {
-              this.register()
+              if (this.userName.indexOf('@mei1.com') !== -1) {
+                this.register()
+              }
             }
           })
         }
