@@ -79,14 +79,14 @@ module.exports = class ProjectController {
       saveQuery.members = memberIds
     }
 
-    const project = await ProjectProxy.findOne(findQuery)
+    // const project = await ProjectProxy.findOne(findQuery)
 
-    if (project) {
-      ctx.body = project.name === name
-        ? ctx.util.refail(`项目 ${name} 已存在`)
-        : ctx.util.refail('请检查 URL 是否已经存在')
-      return
-    }
+    // if (project) {
+    //   ctx.body = project.name === name
+    //     ? ctx.util.refail(`项目 ${name} 已存在`)
+    //     : ctx.util.refail('请检查 URL 是否已经存在')
+    //   return
+    // }
 
     const projects = await ProjectProxy.newAndSave(saveQuery)
 
@@ -128,14 +128,14 @@ module.exports = class ProjectController {
     const newUrl = project.url + '_copy'
     const newName = project.name + '_copy'
     const query = { user: uid, $or: [{ name: newName }, { url: newUrl }] }
-    const checkProject = await ProjectProxy.findOne(query)
+    // const checkProject = await ProjectProxy.findOne(query)
 
-    if (checkProject) {
-      ctx.body = checkProject.name === newName
-        ? ctx.util.refail(`项目 ${newName} 已存在`)
-        : ctx.util.refail('请检查 URL 是否已经存在')
-      return
-    }
+    // if (checkProject) {
+    //   ctx.body = checkProject.name === newName
+    //     ? ctx.util.refail(`项目 ${newName} 已存在`)
+    //     : ctx.util.refail('请检查 URL 是否已经存在')
+    //   return
+    // }
 
     const projects = await ProjectProxy.newAndSave({
       user: uid,
@@ -348,14 +348,14 @@ module.exports = class ProjectController {
       existQuery.user = project.user.id
     }
 
-    const existProject = await ProjectProxy.findOne(existQuery)
+    // const existProject = await ProjectProxy.findOne(existQuery)
 
-    if (existProject) {
-      ctx.body = existProject.name === project.name
-        ? ctx.util.refail(`项目 ${project.name} 已存在`)
-        : ctx.util.refail('请检查 URL 是否已经存在')
-      return
-    }
+    // if (existProject) {
+    //   ctx.body = existProject.name === project.name
+    //     ? ctx.util.refail(`项目 ${project.name} 已存在`)
+    //     : ctx.util.refail('请检查 URL 是否已经存在')
+    //   return
+    // }
 
     await ProjectProxy.updateById(project)
     await redis.del('project:' + id)
